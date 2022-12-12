@@ -30,7 +30,6 @@ class MysqlDB():
             db_connection = self.dbconnect()
             # schema_name = "emp" >> 위에 dbconnect 에서 db를 지정했기 때문에 불필요
             table_name = savepath
-            print("TABLE NAME", table_name)
             #db컬럼명만 추출하는 쿼리
             sql = f"""select column_name from information_schema.columns where table_name = '{table_name}'"""
             cursor.execute(sql.format(table_name))
@@ -49,28 +48,6 @@ class MysqlDB():
             input = csvfile[cnames]
             input.to_sql(name=savepath, con=db_connection, if_exists='append', index=False)
             logging.debug('CSV_TO_DB DONE')
-        except Exception as e:
-            raise
-
-    #pandas 비사용
-    def csv_to_db(self, config, col_names):
-        try :
-            logging.debug('CSV_TO_DB DONE')
-            openpath = config.readpath
-            if '\\' in openpath:
-                openpath = openpath.replace('\\', '/')
-            file = open(openpath, 'r')
-            csvReader = csv.reader(file)
-            logging.debug('DB CONNECTED')
-            cursor = self.conn.cursor()
-            col_nms = col_names
-            for row in csvReader:
-                name = (row[0])
-                email = (row[1])
-                dept = (row[2])
-                salary = (row[3])
-                sql = """INSERT INTO employee (Name, Email, Department, Salary, Joinddate, Jointime) VALUES (%s, %s, %s, %s, curdate(), curtime())"""
-                cursor.execute(sql, row)
         except Exception as e:
             raise
 
