@@ -1,0 +1,27 @@
+<config>
+           <!-- log setting -->
+           <common>
+                     <logger path="C:\project\result\logtest.log" file_size="1048576" count="5" level="DEBUG" />
+           </common>
+           <connection>
+                     <db host="localhost" port="3306" user="root" password="password" db="emp" charset="utf8"/>
+           </connection>
+           <!-- interface setting -->
+           <interfaces>
+               <interface type="FILE" intf_id="EMP" in='C:\project\emp_20221115.txt' out="C:\project\result\newfile.txt" required_date="" required_time="">
+               </interface>
+               <interface type="DBTOFILE" intf_id="EMP3" in='emp_table' out="C:\project\result\db_to_csv3.csv" required_date="" required_time="14:50:56">
+               </interface>
+               <interface type="FILETODB" intf_id="EMP2" in='C:\project\new_input.txt' out="employee" required_date="" required_time="">
+                   <columns>
+                       <column name="Name" rename=""></column>
+                       <column name="Email" rename=""></column>
+                       <column name="Department" rename=""></column>
+                       <column name="Sal" rename="Salary"></column>
+                    </columns>
+               </interface>
+               <interface type="DBTODB">
+                   <sql from_db="EMP" from_table="EMPLOYEE" to_db="NEW_EMP" to_table="NEW_EMP.EMPLOYEE"></sql>
+               </interface>
+           </interfaces>
+</config>
