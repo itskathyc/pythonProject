@@ -23,7 +23,7 @@ class LogManager():
             self.logger.addHandler(self.stream_handler)
             logging.debug('LOGGER SETTING DONE')
         except Exception as e:
-            logging.error(e)
+            raise
 
     def logfileSetting(self, logpath, fsize, bu_count):
         try:
@@ -35,6 +35,6 @@ class LogManager():
             self.logger.addHandler(self.filehandler)
             logging.debug('LOGFILE SETTING STARTS')
         except Exception as e:
-            logging.error(e)
+            raise
 
 
