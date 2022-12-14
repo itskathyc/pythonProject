@@ -10,7 +10,14 @@
            <interfaces>
                <interface type="FILE" intf_id="EMP" in='C:\project\emp_20221115.txt' out="C:\project\result\newfile.txt" required_date="" required_time="">
                </interface>
-               <interface type="DBTOFILE" intf_id="EMP3" in='emp_table' out="C:\project\result\db_to_csv3.csv" required_date="" required_time="14:50:56">
+               <interface type="DBTOFILE" intf_id="EMP3" in='emp_table' out="C:\project\result\db_to_csv3.csv">
+                    <columns>
+                       <column name="Joindate" rename="" type="condition" condition="TODAY_DATE"></column>
+                       <column name="Name" rename=""></column>
+                       <column name="Email" rename=""></column>
+                       <column name="Department" rename=""></column>
+                       <column name="Sal" rename="Salary"></column>
+                    </columns>
                </interface>
                <interface type="FILETODB" intf_id="EMP2" in='C:\project\new_input.txt' out="employee" required_date="" required_time="">
                    <columns>

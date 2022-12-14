@@ -59,88 +59,103 @@ class Config:
                 self.from_table = sql.attrib.get("from_table")
                 self.to_table = sql.attrib.get("to_table")
         except Exception as e:
+            logging.error('READ CONFIG : ', e)
             raise
 
     def get_db_info(self):
         try:
             return self.connection_info
         except Exception as e:
+           logging.error('CONFIG - GET DB INFO : ', e)
            raise
 
     def get_logpath(self):
         try:
             return self.logpath
         except Exception as e:
+           logging.error('CONFIG - GET LOGPATH : ', e)
            raise
 
     def get_intf_info(self):
         try:
             return self.intf_list
         except Exception as e:
-           raise
+            logging.error('CONFIG - GET_CONFIGXML_INTF_INFO : ', e)
+            raise
 
     def get_intftype(self):
         try:
             return self.intf_type
         except Exception as e:
-           raise
+            logging.error('CONFIG - GET_INTFTYPE : ', e)
+            raise
 
     def get_filesize(self):
         try:
             return self.filesize
         except Exception as e:
-           raise
+            logging.error('CONFIG - READ CONFIG', e)
+            raise
 
     def get_bucount(self):
         try:
             return self.bucount
         except Exception as e:
-           raise
+            logging.error('CONFIG - GET_BACKUP_COUNT : ', e)
+            raise
 
     def get_readpath(self):
         try:
             return self.readpath
         except Exception as e:
-           raise
+            logging.error('CONFIG - GET_READPATH : ', e)
+            raise
 
     def get_savepath(self):
         try:
             return self.savepath
         except Exception as e:
-           raise
+            logging.error('CONFIG - GET_SAVEPATH : ', e)
+            raise
 
     def get_level(self):
         try:
             return self.level
         except Exception as e:
-           raise
+            logging.error('CONFIG - GET_LOGLEVEL : ', e)
+            raise
 
     def get_db_conn_info(self):
         try:
             return self.db_connection_info
         except Exception as e:
+            logging.error('CONFIG - GET_DB_CONN_INFO : ', e)
             raise
 
     def get_column_name(self):
         try:
             return self.column_nms
         except Exception as e:
+            logging.error('CONFIG - GET_COLUMN_NAME: ', e)
             raise
 
     def get_table_info(self):
         try:
             return self.table_info
         except Exception as e:
+            logging.error('CONFIG - GET_TABLE_INFO : ', e)
             raise
 
     def get_sql(self):
         try:
             return self.sql
         except Exception as e:
+            logging.error('CONFIG - GET_SQL : ', e)
             raise
 
     def get_currentdates(self):
         try :
             return self.current_dates
         except Exception as e:
+            logging.error('CONFIG - GET_CURRENTDATES : ', e)
             raise

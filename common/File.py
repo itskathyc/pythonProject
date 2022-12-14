@@ -13,6 +13,7 @@ class File():
             return cfile
             logging.info('changefile ended')
         except Exception as e:
+            logging.error('FILE - CHANGEFILE : ', e)
             raise
 
     def save_file(self, spath, readpath):
@@ -24,5 +25,6 @@ class File():
             f.write(cfile)
             f.close()
             logging.info('savefile ended')
-        except Exception:
+        except Exception as e:
+            logging.error('FILE - SAVEFILE : ', e)
             raise

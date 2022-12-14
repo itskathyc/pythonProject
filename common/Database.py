@@ -19,6 +19,7 @@ class MysqlDB():
             logging.debug('DB CONNECTED')
             return db_connection
         except Exception as err:
+            logging.error('MysqlDB - DBCONNECT : ', err)
             raise
 
 
@@ -49,6 +50,7 @@ class MysqlDB():
             input.to_sql(name=savepath, con=db_connection, if_exists='append', index=False)
             logging.debug('CSV_TO_DB DONE')
         except Exception as e:
+            logging.error('MysqlDB - CSV_DF_DB : ', e)
             raise
 
     def db_to_csv(self, savepath, currdate, currtime):
@@ -68,6 +70,7 @@ class MysqlDB():
             df = pd.read_sql_query(sql, self.conn)
             df.to_csv(savepath, index=False)
         except Exception as e:
+            logging.error('MysqlDB - DB TO CSVFILE : ', e)
             raise
 
     def db_to_db(self, to_table, from_table):
@@ -76,16 +79,19 @@ class MysqlDB():
             sql = "INSERT INTO {0} SELECT * FROM {1}"
             cursor.execute(sql.format(to_table, from_table))
         except Exception as e:
+            logging.error('MysqlDB - DB TO DB : ', e)
             raise
 
     def db_commit(self):
         try :
             self.conn.commit()
         except Exception as e:
+            logging.error('MysqlDB - DB COMMIT : ', e)
             raise
 
     def db_close(self):
         try :
             self.conn.close()
         except Exception as e:
+            logging.error('MysqlDB - DB CLOSE : ', e)
             raise
