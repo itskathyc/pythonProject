@@ -18,9 +18,11 @@ class Config:
         self.col_renames = []
         self.rename = ""
         self.name = ""
-        self.sql = ""
+        self.sql_address = ""
         self.from_table = ""
         self.to_table = ""
+        self.time_condition = ""
+        self.r_type = ""
 
     def readConfig(self):
         try :
@@ -44,8 +46,11 @@ class Config:
                 intf_dict['intf_type'] = intfs.attrib.get("type")
                 intf_dict['readpath'] = intfs.attrib.get("in")
                 intf_dict['savepath'] = intfs.attrib.get("out")
-                intf_dict['required_date'] = intfs.attrib.get("required_date")
-                intf_dict['required_time'] = intfs.attrib.get("required_time")
+                # intf_dict['required_date'] = intfs.attrib.get("required_date")
+                # intf_dict['required_time'] = intfs.attrib.get("required_time")
+                intf_dict['r_type'] = intfs.attrib.get("r_type")
+                intf_dict['time_condition'] = intfs.attrib.get("time_condition")
+                intf_dict['sql_address'] = intfs.attrib.get("sqlin")
                 self.intf_list.append(intf_dict)
             #
             for col in root.findall("interfaces/interface/columns/column"):
@@ -53,6 +58,8 @@ class Config:
                 self.column_names.append(self.name)
                 self.rename = col.attrib.get("rename")
                 self.col_renames.append(self.rename)
+                # self.r_type = col.attrib.get("r_type")
+                # self.time_condition = col.attrib.get("time_condition")
             #db to db
             for sql in root.findall("interfaces/interface/sql"):
                 #fromtable_info, totable_info를 리스트로 받으면?
@@ -148,7 +155,7 @@ class Config:
 
     def get_sql(self):
         try:
-            return self.sql
+            return self.sql_address
         except Exception as e:
             logging.error('CONFIG - GET_SQL : ', e)
             raise
@@ -159,3 +166,9 @@ class Config:
         except Exception as e:
             logging.error('CONFIG - GET_CURRENTDATES : ', e)
             raise
+
+    def get_timeconditions(self):
+        try :
+            return self.r_type, self.time_condition
+        except Exception as e:
+            logging.error('CONFIG - GET TIMECONDITIONS ERROR : ', e)

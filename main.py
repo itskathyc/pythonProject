@@ -24,30 +24,31 @@ if __name__ == '__main__':
         mysql = MysqlDB()
         col_names = config.column_names
         col_renames = config.col_renames
+        r_type = config.r_type #required type
+        time_condition = config.time_condition
         #파일 입출력
         for intf in intf_list:
             if intf['intf_type'] == 'FILETODB':
-                mysql.dbconnect()
-                logging.debug('FILE TO DB : DB CONNECTED')
-                savepath = intf['savepath']
-                readpath = intf['readpath']
-                mysql.csv_df_db(config, savepath, readpath, col_names, col_renames)
-                mysql.db_commit()
-                logging.debug('FILE TO DB : DB COMMITTED')
-                mysql.db_close()
-                logging.info("file to db DONE")
+                 mysql.dbconnect()
+                 logging.debug('FILE TO DB : DB CONNECTED')
+                 savepath = intf['savepath']
+                 readpath = intf['readpath']
+                 mysql.csv_df_db(savepath, readpath, col_names, col_renames)
+                 mysql.db_commit()
+                 logging.debug('FILE TO DB : DB COMMITTED')
+                 mysql.db_close()
+                 logging.info("file to db DONE")
             if intf['intf_type'] == 'DBTOFILE':
                 savepath = intf['savepath']
                 dbc = mysql.dbconnect()
                 logging.debug('DB TO FILE : DB CONNECTED')
-                currdate = intf['required_date']
-                currtime = intf['required_time']
-                mysql.db_to_csv(savepath, currdate, currtime)
+                r_type = intf['r_type']
+                time_condition = intf['time_condition']
+                sql_address = intf['sql_address']
+                mysql.db_to_csv(savepath, r_type, time_condition, sql_address)
                 logging.info("db to file DONE")
             if intf['intf_type'] == 'FILE':
                 rpath = intf['readpath']
-                cfile = file.change_file(rpath)
-                # cfile = file.change_file(config)
                 spath = intf['savepath']
                 file.save_file(spath, rpath)
                 logging.info("FILE SAVE DONE")
